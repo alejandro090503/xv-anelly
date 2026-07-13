@@ -683,6 +683,8 @@ function launchPage(){
   initScrollReveal();
   initTimeline();
   initCrossfade();
+  /* Reasegura la música tras revelar (por si el fin del video la pausó) */
+  if(window.resumeMusic){ setTimeout(window.resumeMusic,400); setTimeout(window.resumeMusic,1200); }
 }
 
 /* ── PÉTALOS rosa/peach ── */
@@ -808,15 +810,26 @@ function initCrossfade(){
 /* ── MÚSICA ── */
 (function(){
   const fab=document.getElementById('musicFab'),audio=document.getElementById('bgAudio');
-  let playing=false;
-  function setPlaying(on){
-    playing=on;
-    if(playing){audio.play().catch(()=>{});fab.style.background='var(--dark)';}
-    else{audio.pause();fab.style.background='var(--accent)';}
-  }
-  fab.addEventListener('click',()=>setPlaying(!playing));
+  let wantPlaying=false;
+  function updateFab(){ fab.style.background = wantPlaying ? 'var(--dark)' : 'var(--accent)'; }
+  function play(){ wantPlaying=true; audio.play().catch(()=>{}); updateFab(); }
+  function pause(){ wantPlaying=false; audio.pause(); updateFab(); }
+  fab.addEventListener('click',()=> wantPlaying ? pause() : play());
+  /* Si algo externo (fin del video del sobre, etc.) pausa el audio pero
+     el usuario quiere que suene, reanudarlo automáticamente (con reintentos). */
+  audio.addEventListener('pause',function(){
+    if(!wantPlaying || audio.ended) return;
+    var tries=0;
+    (function retry(){
+      if(!wantPlaying || !audio.paused) return;
+      audio.play().catch(()=>{});
+      if(++tries<6) setTimeout(retry,250);
+    })();
+  });
   /* Arranque automático al abrir el sobre (gesto de usuario) */
-  window.startMusic=function(){ if(!playing) setPlaying(true); };
+  window.startMusic=function(){ if(!wantPlaying) play(); };
+  /* Reasegura la reproducción (usado tras revelar la invitación) */
+  window.resumeMusic=function(){ if(wantPlaying && audio.paused) audio.play().catch(()=>{}); };
 })();
 </script>
 </body>
