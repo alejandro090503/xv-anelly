@@ -618,9 +618,8 @@ footer .fd{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14
 <button class="music-fab" id="musicFab" aria-label="Reproducir música">
   <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
 </button>
-<!-- PENDIENTE: subir canción de Anely a Supabase y actualizar src -->
-<audio id="bgAudio" loop preload="none">
-  <source src="" type="audio/mpeg">
+<audio id="bgAudio" loop preload="auto">
+  <source src="./cancion.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -662,6 +661,7 @@ gsap.registerPlugin(ScrollTrigger);
   envVideo.addEventListener('ended',function(){gsap.set(envFlash,{opacity:1});revealInvitation();});
   function openEnvelope(){
     if(opened) return; opened=true;
+    if(window.startMusic){try{window.startMusic();}catch(e){}}
     gsap.killTweensOf(envImage);
     gsap.to(hint,{opacity:0,duration:0.2});
     var p=envVideo.play();
@@ -809,11 +809,14 @@ function initCrossfade(){
 (function(){
   const fab=document.getElementById('musicFab'),audio=document.getElementById('bgAudio');
   let playing=false;
-  fab.addEventListener('click',()=>{
-    playing=!playing;
+  function setPlaying(on){
+    playing=on;
     if(playing){audio.play().catch(()=>{});fab.style.background='var(--dark)';}
     else{audio.pause();fab.style.background='var(--accent)';}
-  });
+  }
+  fab.addEventListener('click',()=>setPlaying(!playing));
+  /* Arranque automático al abrir el sobre (gesto de usuario) */
+  window.startMusic=function(){ if(!playing) setPlaying(true); };
 })();
 </script>
 </body>
