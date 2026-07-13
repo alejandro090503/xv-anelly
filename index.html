@@ -133,7 +133,8 @@ section{padding:62px 26px;position:relative;}
 }
 .intro-card .fl{width:46%;max-width:175px;}
 .intro-tiara{position:relative;z-index:2;display:flex;justify-content:center;margin-bottom:18px;}
-.intro-tiara img{width:96px;height:auto;filter:drop-shadow(0 4px 10px rgba(139,74,96,.18));}
+.intro-tiara img{width:96px;height:auto;filter:drop-shadow(0 0 14px rgba(244,164,192,.85)) drop-shadow(0 0 28px rgba(224,140,172,.55)) drop-shadow(0 4px 10px rgba(139,74,96,.25));animation:tiaraGlow 3.2s ease-in-out infinite;}
+@keyframes tiaraGlow{0%,100%{filter:drop-shadow(0 0 12px rgba(244,164,192,.7)) drop-shadow(0 0 22px rgba(224,140,172,.4)) drop-shadow(0 4px 10px rgba(139,74,96,.25));}50%{filter:drop-shadow(0 0 20px rgba(244,164,192,1)) drop-shadow(0 0 40px rgba(224,140,172,.7)) drop-shadow(0 4px 12px rgba(139,74,96,.3));}}
 .intro-text{position:relative;z-index:2;font-family:'Cormorant Garamond',serif;font-size:18.5px;line-height:1.78;color:var(--ink);text-align:center;font-weight:500;}
 .intro-text .lead::first-letter{font-family:'Great Vibes',cursive;font-size:52px;color:var(--accent);float:left;line-height:.7;padding:8px 8px 0 0;}
 .intro-text p+p{margin-top:16px;}
@@ -225,7 +226,7 @@ section{padding:62px 26px;position:relative;}
 .cf-label{position:absolute;top:42px;left:0;right:0;z-index:3;text-align:center;}
 .cf-label .sec-title{margin-bottom:0;}
 
-#cfImg2{object-position:center;}
+#cfImg2{object-position:32% center;}
 
 /* ── ÁLBUM / COMPARTE TUS FOTOS ── */
 .album{position:relative;overflow:hidden;padding:0;}
@@ -397,7 +398,7 @@ footer .fd{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14
     <div class="loc-pin rv"><img src="./ic-pin.svg" alt=""></div>
 
     <div class="loc-card rv">
-      <div class="lt">Misa de XV Años</div>
+      <div class="lt">Parroquia de Nuestra Señora de los Ángeles</div>
       <div class="ls">Ceremonia Religiosa</div>
       <div class="loc-times">
         <div><div class="lt-lbl">Hora</div><div class="lt-h">18:00 hrs</div></div>
@@ -406,8 +407,8 @@ footer .fd{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14
     </div>
 
     <div class="loc-card rv">
-      <div class="lt">Recepción</div>
-      <div class="ls">Celebración</div>
+      <div class="lt">La Violeta</div>
+      <div class="ls">Recepción</div>
       <div class="loc-times">
         <div><div class="lt-lbl">Hora</div><div class="lt-h">20:00 hrs</div></div>
       </div>
@@ -536,7 +537,7 @@ footer .fd{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14
 
   <!-- CIERRE -->
   <section class="closing">
-    <div class="closing-bg"></div>
+    <div class="closing-bg" style="background:url('./foto-banca.jpg') center 20%/cover no-repeat;"></div>
     <div class="closing-veil"></div>
     <p class="closing-text rv">Con mucha ilusión y cariño, te espero para compartir juntos este día tan especial. Tu presencia hará de esta celebración un recuerdo lleno de alegría y amor.</p>
     <div class="closing-sign script rv">Anely</div>
